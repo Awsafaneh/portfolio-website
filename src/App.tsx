@@ -7,7 +7,6 @@ import {
   TooltipTrigger,
 } from "./components/ui/tooltip";
 import { buttonVariants } from "./components/ui/button";
-import { cn } from "./lib/utils";
 import { MailIcon } from "lucide-react";
 import React from "react";
 

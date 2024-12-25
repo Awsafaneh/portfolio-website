@@ -76,10 +76,7 @@ function App() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={social.name}
-                        className={cn(
-                          buttonVariants({ variant: "ghost", size: "icon" }),
-                          "size-12 rounded-full"
-                        )}
+                        className={`${buttonVariants({ variant: "ghost", size: "icon" })} size-12 rounded-full`}
                       >
                         <social.icon className="size-4" />
                       </a>

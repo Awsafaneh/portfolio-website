@@ -61,8 +61,11 @@ function App() {
         <div className="absolute top-0 left-0 w-full sm:w-[40vw] h-[40vh]">
           <Meteors number={30} />
         </div>
-        <span className="pointer-events-none max-w-[90%] px-6 py-2 whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-5xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-relaxed text-transparent dark:from-white dark:to-slate-900/10">
-          Coming Soon
+        <span className="pointer-events-none max-w-[90%] px-2 py-1 whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight text-transparent dark:from-white dark:to-slate-900/10">
+          Mustafa Eftekin
+        </span>
+        <span className="pointer-events-none max-w-[90%] px-2 py-1 mt-0 sm:mt-0.5 whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-light leading-tight text-transparent dark:from-white dark:to-slate-900/10">
+          Launching soon... <span className="text-yellow-500">🚀</span>
         </span>
         <div className="mt-8">
           <TooltipProvider>
@@ -76,7 +79,10 @@ function App() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={social.name}
-                        className={`${buttonVariants({ variant: "ghost", size: "icon" })} size-12 rounded-full`}
+                        className={`${buttonVariants({
+                          variant: "ghost",
+                          size: "icon",
+                        })} size-12 rounded-full`}
                       >
                         <social.icon className="size-4" />
                       </a>

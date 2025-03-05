@@ -18,7 +18,7 @@ function Hero() {
   const socialLinks = [
     { icon: FaGithub, href: "https://github.com/eftekin" },
     { icon: FaLinkedin, href: "https://linkedin.com/in/eftekin" },
-    { icon: FaXTwitter, href: "https://x.com/eftekin" },
+    { icon: FaXTwitter, href: "https://x.com/eftekindev" },
     { icon: MdEmail, href: "mailto:mustafa@eftekin.com" },
   ];
 

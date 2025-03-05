@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -26,14 +26,23 @@ export function HoverBorderGradient({
   const [hovered, setHovered] = useState<boolean>(false);
   const [direction, setDirection] = useState<Direction>("TOP");
 
-  const rotateDirection = (currentDirection: Direction): Direction => {
-    const directions: Direction[] = ["TOP", "LEFT", "BOTTOM", "RIGHT"];
-    const currentIndex = directions.indexOf(currentDirection);
-    const nextIndex = clockwise
-      ? (currentIndex - 1 + directions.length) % directions.length
-      : (currentIndex + 1) % directions.length;
-    return directions[nextIndex];
-  };
+  useEffect(() => {
+    if (!hovered) {
+      const rotateDirection = (currentDirection: Direction): Direction => {
+        const directions: Direction[] = ["TOP", "LEFT", "BOTTOM", "RIGHT"];
+        const currentIndex = directions.indexOf(currentDirection);
+        const nextIndex = clockwise
+          ? (currentIndex - 1 + directions.length) % directions.length
+          : (currentIndex + 1) % directions.length;
+        return directions[nextIndex];
+      };
+
+      const interval = setInterval(() => {
+        setDirection((prevState) => rotateDirection(prevState));
+      }, duration * 1000);
+      return () => clearInterval(interval);
+    }
+  }, [hovered, duration, clockwise]);
 
   const movingMap: Record<Direction, string> = {
     TOP: "radial-gradient(20.7% 50% at 50% 0%, hsl(0, 0%, 100%) 0%, rgba(255, 255, 255, 0) 100%)",
@@ -47,17 +56,9 @@ export function HoverBorderGradient({
   const highlight =
     "radial-gradient(75% 181.15942028985506% at 50% 50%, #3275F8 0%, rgba(255, 255, 255, 0) 100%)";
 
-  useEffect(() => {
-    if (!hovered) {
-      const interval = setInterval(() => {
-        setDirection((prevState) => rotateDirection(prevState));
-      }, duration * 1000);
-      return () => clearInterval(interval);
-    }
-  }, [hovered]);
   return (
     <Tag
-      onMouseEnter={(event: React.MouseEvent<HTMLDivElement>) => {
+      onMouseEnter={() => {
         setHovered(true);
       }}
       onMouseLeave={() => setHovered(false)}
@@ -76,9 +77,7 @@ export function HoverBorderGradient({
         {children}
       </div>
       <motion.div
-        className={cn(
-          "flex-none inset-0 overflow-hidden absolute z-0 rounded-[inherit]"
-        )}
+        className={cn("flex-none inset-0 overflow-hidden absolute z-0 rounded-[inherit]")}
         style={{
           filter: "blur(2px)",
           position: "absolute",
@@ -87,9 +86,7 @@ export function HoverBorderGradient({
         }}
         initial={{ background: movingMap[direction] }}
         animate={{
-          background: hovered
-            ? [movingMap[direction], highlight]
-            : movingMap[direction],
+          background: hovered ? [movingMap[direction], highlight] : movingMap[direction],
         }}
         transition={{ ease: "linear", duration: duration ?? 1 }}
       />

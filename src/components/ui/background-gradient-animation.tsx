@@ -4,23 +4,19 @@ import { useEffect, useRef } from "react";
 
 export const BackgroundGradientAnimation = ({
   gradientBackgroundStart = "rgb(108, 0, 162)",
-  gradientBackgroundEnd = "rgb(0, 17, 82)",
   firstColor = "18, 113, 255",
   secondColor = "221, 74, 255",
   thirdColor = "100, 220, 255",
   containerClassName = "",
   className = "",
-  interactive = true,
   size = "80vw",
 }: {
   gradientBackgroundStart?: string;
-  gradientBackgroundEnd?: string;
   firstColor?: string;
   secondColor?: string;
   thirdColor?: string;
   containerClassName?: string;
   className?: string;
-  interactive?: boolean;
   size?: string;
 }) => {
   const interactiveRef = useRef<HTMLDivElement>(null);

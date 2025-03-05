@@ -42,9 +42,7 @@ function ProjectCard({
         ) : (
           <BackgroundGradientAnimation
             containerClassName="rounded-t-lg"
-            interactive={false}
             gradientBackgroundStart="rgb(17, 17, 17)"
-            gradientBackgroundEnd="rgb(24, 24, 24)"
             firstColor={gradientColors.firstColor}
             secondColor={gradientColors.secondColor}
             thirdColor={gradientColors.thirdColor}

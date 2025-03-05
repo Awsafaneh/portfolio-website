@@ -1,0 +1,80 @@
+"use client";
+
+import Image from "next/image";
+import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
+import { MdEmail } from "react-icons/md";
+
+function Hero() {
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    e.preventDefault();
+    const href = e.currentTarget.href;
+    const targetId = href.replace(/.*\#/, "");
+    const elem = document.getElementById(targetId);
+    elem?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
+  const socialLinks = [
+    { icon: FaGithub, href: "https://github.com/eftekin" },
+    { icon: FaLinkedin, href: "https://linkedin.com/in/eftekin" },
+    { icon: FaXTwitter, href: "https://x.com/eftekin" },
+    { icon: MdEmail, href: "mailto:mustafa@eftekin.com" },
+  ];
+
+  return (
+    <div
+      id="about"
+      className="flex flex-col items-center justify-center min-h-[90vh] text-center gap-10 px-4 py-20 mt-16 md:mt-0"
+    >
+      <div className="relative w-36 h-36 md:w-44 md:h-44 overflow-hidden rounded-full border-4 border-neutral-700/50 shadow-xl hover:border-neutral-600/50 transition-colors duration-300">
+        <Image
+          src="/profile.jpeg"
+          fill
+          className="object-cover"
+          alt="Mustafa Eftekin"
+          priority
+        />
+      </div>
+
+      <div className="space-y-5 max-w-2xl">
+        <h1 className="text-4xl md:text-6xl font-bold text-white">Mustafa Eftekin</h1>
+        <p className="text-lg md:text-xl text-neutral-300">
+          Building intelligent solutions with AI and code.
+          <span className="block mt-2 text-neutral-400">
+            Full Stack Developer & AI Enthusiast
+          </span>
+        </p>
+      </div>
+
+      <div className="flex gap-8">
+        {socialLinks.map((link, i) => {
+          const Icon = link.icon;
+          return (
+            <a
+              key={i}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-neutral-400 hover:text-white transition-colors duration-300"
+            >
+              <Icon size={28} />
+            </a>
+          );
+        })}
+      </div>
+
+      <div className="relative bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 p-[1px] rounded-full cursor-pointer group">
+        <a
+          href="#projects"
+          onClick={handleScroll}
+          className="block px-8 py-3 rounded-full bg-neutral-900 text-white relative transition-all duration-300 group-hover:bg-neutral-800"
+        >
+          View Projects
+        </a>
+      </div>
+    </div>
+  );
+}
+
+export default Hero;

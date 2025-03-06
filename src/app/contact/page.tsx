@@ -8,6 +8,12 @@ import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
 import { toast } from "react-hot-toast";
 
+type FormErrors = {
+  name?: string;
+  email?: string;
+  message?: string;
+};
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -15,6 +21,7 @@ export default function Contact() {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
 
   const [currentTime, setCurrentTime] = useState("");
 
@@ -34,8 +41,32 @@ export default function Contact() {
     return () => clearInterval(timer);
   }, []);
 
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    if (formData.name.length < 2 || formData.name.length > 50) {
+      newErrors.name = "Name must be between 2 and 50 characters";
+    }
+
+    if (formData.message.length < 10 || formData.message.length > 1000) {
+      newErrors.message = "Message must be between 10 and 1000 characters";
+    }
+
+    if (!formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -113,33 +144,53 @@ export default function Contact() {
               onSubmit={handleSubmit}
               className="space-y-4"
             >
-              <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full bg-neutral-900/50 border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-600 transition-colors placeholder:text-neutral-500"
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full bg-neutral-900/50 border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-600 transition-colors placeholder:text-neutral-500"
-              />
-              <textarea
-                name="message"
-                placeholder="Message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows={4}
-                className="w-full bg-neutral-900/50 border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-600 transition-colors placeholder:text-neutral-500"
-              />
+              <div className="space-y-1">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className={`w-full bg-neutral-900/50 border ${
+                    errors.name ? "border-red-500" : "border-neutral-800"
+                  } text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-600 transition-colors placeholder:text-neutral-500`}
+                />
+                {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+              </div>
+
+              <div className="space-y-1">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className={`w-full bg-neutral-900/50 border ${
+                    errors.email ? "border-red-500" : "border-neutral-800"
+                  } text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-600 transition-colors placeholder:text-neutral-500`}
+                />
+                {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+              </div>
+
+              <div className="space-y-1">
+                <textarea
+                  name="message"
+                  placeholder="Message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows={4}
+                  className={`w-full bg-neutral-900/50 border ${
+                    errors.message ? "border-red-500" : "border-neutral-800"
+                  } text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-600 transition-colors placeholder:text-neutral-500`}
+                />
+                {errors.message && (
+                  <p className="text-red-500 text-sm">{errors.message}</p>
+                )}
+              </div>
+
               <button
                 type="submit"
                 disabled={isSubmitting}

@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 
+// Enable more detailed error logging
+const debug = true;
+
 // Environment variable checks
 const requiredEnvVars = [
   "NEXT_PUBLIC_SUPABASE_URL",
@@ -25,11 +28,6 @@ const contactSchema = z.object({
 const rateLimiter = new Map<string, { count: number; timestamp: number }>();
 const RATE_LIMIT = 5; // max requests
 const TIME_WINDOW = 3600000; // 1 hour in milliseconds
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
 
 export async function POST(request: Request) {
   try {
@@ -71,30 +69,98 @@ export async function POST(request: Request) {
 
     const body = await request.json();
 
+    // Log incoming request in debug mode
+    if (debug) {
+      console.log("Incoming request:", {
+        headers: Object.fromEntries(request.headers),
+        body,
+      });
+    }
+
     // Validate input
     const result = contactSchema.safeParse(body);
     if (!result.success) {
-      return NextResponse.json({ error: "Invalid input" }, { status: 400 });
+      console.error("Validation error:", result.error);
+      return NextResponse.json(
+        {
+          error: "Invalid input",
+          details: result.error.errors,
+        },
+        { status: 400 }
+      );
     }
 
     const { name, email, message } = result.data;
 
+    // Initialize Supabase client
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!,
+      {
+        auth: {
+          autoRefreshToken: false,
+          persistSession: false,
+        },
+      }
+    );
+
     // Sanitize input (basic example)
     const sanitizedMessage = message.trim().replace(/<[^>]*>/g, "");
 
-    const { error } = await supabase.from("contact_messages").insert([
+    // Insert data with error logging
+    const { data, error } = await supabase
+      .from("contact_messages")
+      .insert([
+        {
+          name: name.trim(),
+          email: email.trim(),
+          message: sanitizedMessage,
+          created_at: new Date().toISOString(),
+        },
+      ])
+      .select();
+
+    if (error) {
+      console.error("Supabase error:", error);
+      throw error;
+    }
+
+    return NextResponse.json(
       {
-        name: name.trim(),
-        email: email.trim(),
-        message: sanitizedMessage,
+        message: "Success",
+        data,
       },
-    ]);
-
-    if (error) throw error;
-
-    return NextResponse.json({ message: "Success" }, { status: 200 });
+      {
+        status: 200,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "POST",
+          "Access-Control-Allow-Headers": "Content-Type",
+        },
+      }
+    );
   } catch (error) {
-    console.error("Error details:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    console.error("Detailed error:", error);
+    return NextResponse.json(
+      {
+        error: "Internal server error",
+        details: debug ? String(error) : undefined,
+      },
+      { status: 500 }
+    );
   }
+}
+
+// Add OPTIONS handler for CORS
+export async function OPTIONS() {
+  return NextResponse.json(
+    {},
+    {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+    }
+  );
 }

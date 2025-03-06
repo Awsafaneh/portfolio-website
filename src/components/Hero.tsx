@@ -34,7 +34,8 @@ function Hero() {
           fill
           className="object-cover"
           alt="Mustafa Eftekin"
-          priority
+          priority={true}
+          loading="lazy"
           quality={90}
         />
       </div>

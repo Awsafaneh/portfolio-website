@@ -42,7 +42,7 @@ export function Navbar() {
 
   return (
     <nav className="fixed top-0 w-full py-4 backdrop-blur-sm z-50">
-      <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-4 flex items-center justify-between">
         <Link
           href="/"
           className="text-white font-bold text-xl hover:text-neutral-200 transition-colors"

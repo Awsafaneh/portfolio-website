@@ -37,6 +37,7 @@ function ProjectCard({
             src={imageUrl}
             alt={title}
             fill
+            loading="lazy"
             className="object-cover rounded-t-lg group-hover:scale-105 transition-transform duration-300"
           />
         ) : (

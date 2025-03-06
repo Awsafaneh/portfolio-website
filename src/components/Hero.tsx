@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
+import { ScrollArrow } from "./ui/scroll-arrow";
 
 function Hero() {
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -25,7 +26,7 @@ function Hero() {
   return (
     <div
       id="about"
-      className="flex flex-col items-center justify-center min-h-[90vh] text-center gap-10 px-4 py-20 mt-16 md:mt-0"
+      className="flex flex-col items-center justify-center min-h-[85vh] text-center gap-8 px-4 py-12 mt-4 md:mt-0 relative"
     >
       <div className="relative w-36 h-36 md:w-44 md:h-44 overflow-hidden rounded-full border-4 border-neutral-700/50 shadow-xl hover:border-neutral-600/50 transition-colors duration-300">
         <Image
@@ -34,6 +35,7 @@ function Hero() {
           className="object-cover"
           alt="Mustafa Eftekin"
           priority
+          quality={90}
         />
       </div>
 
@@ -73,6 +75,7 @@ function Hero() {
           View Projects
         </a>
       </div>
+      <ScrollArrow />
     </div>
   );
 }

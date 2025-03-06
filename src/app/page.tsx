@@ -4,6 +4,7 @@ import Projects from "@/components/Projects";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
 import { Footer } from "@/components/Footer";
+import Resume from "@/components/Resume";
 
 export default function Home() {
   return (
@@ -15,8 +16,9 @@ export default function Home() {
 
       <Navbar />
 
-      <div className="relative z-10 space-y-32 pb-32">
+      <div className="container mx-auto space-y-20 md:space-y-24">
         <Hero />
+        <Resume />
         <Projects />
       </div>
 

@@ -35,7 +35,6 @@ function Hero() {
           className="object-cover"
           alt="Mustafa Eftekin"
           priority={true}
-          loading="lazy"
           quality={90}
         />
       </div>

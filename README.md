@@ -1,4 +1,4 @@
-# 🌐 Portfolio Site
+# 🌐 Portfolio Website
 
 Welcome to my personal website! Here, I share my journey in AI, software development, and projects I’m passionate about. Built with **Next.js**, styled with **Tailwind CSS**, and using **Supabase** for the contact section.
 

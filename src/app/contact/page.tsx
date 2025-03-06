@@ -6,7 +6,6 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
-import { supabase } from "@/lib/supabase";
 import { toast } from "react-hot-toast";
 
 export default function Contact() {
@@ -15,6 +14,7 @@ export default function Contact() {
     email: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [currentTime, setCurrentTime] = useState("");
 
@@ -36,23 +36,33 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.from("contact_messages").insert([
-        {
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      ]);
+        body: JSON.stringify(formData),
+      });
 
-      if (error) throw error;
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to send message");
+      }
 
       toast.success("Message sent successfully!");
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
       console.error("Error:", error);
-      toast.error("Failed to send message. Please try again.");
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Failed to send message. Please try again."
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -132,9 +142,10 @@ export default function Contact() {
               />
               <button
                 type="submit"
-                className="w-full py-3 px-4 rounded-lg bg-neutral-800 text-white font-medium hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-neutral-600 transition-colors duration-300"
+                disabled={isSubmitting}
+                className="w-full py-3 px-4 rounded-lg bg-neutral-800 text-white font-medium hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-neutral-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Send Message
+                {isSubmitting ? "Sending..." : "Send Message"}
               </button>
             </motion.form>
           </div>

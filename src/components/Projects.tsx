@@ -6,7 +6,7 @@ const projects = [
   {
     title: "Exam Genius",
     description:
-      "A Python app for Halic University students to access exam dates and classroom info.",
+      "A Python app serving 3000+ Halic University students to access exam dates and classroom info.",
     imageUrl: "/examgenius.gif",
     githubUrl: "https://github.com/eftekin/halic-exam-genius",
     liveUrl: "https://halicexamgenius.streamlit.app",

@@ -20,6 +20,7 @@ const projects = [
   {
     title: "Talkzilla",
     description: "A chatbot that roars with fun conversations!",
+    imageUrl: "/talkzilla.gif",
     githubUrl: "https://github.com/eftekin/talkzilla",
     liveUrl: "https://talkzilla.streamlit.app",
     technologies: ["Python", "Streamlit", "OpenAI"],
@@ -33,8 +34,9 @@ const projects = [
     title: "AI-EngVentures",
     description:
       "A repository showcasing AI and machine learning projects and implementations.",
+    imageUrl: "/aieng.gif",
     githubUrl: "https://github.com/eftekin/AI-EngVentures",
-    liveUrl: "#", // There isn't a live URL for this repository
+    liveUrl: "https://aiengventures.streamlit.app", // There isn't a live URL for this repository
     technologies: ["Python", "TensorFlow", "OpenCV", "Pandas", "Scikit-learn"],
     gradientColors: {
       firstColor: "88, 85, 255",

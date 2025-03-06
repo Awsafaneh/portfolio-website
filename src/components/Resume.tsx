@@ -1,7 +1,37 @@
+"use client";
+
 import { Timeline } from "@/components/ui/timeline";
+import { Modal } from "@/components/ui/modal";
 import Image from "next/image";
+import { useState } from "react";
 
 function Resume() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const handleImageClick = (src: string) => {
+    setSelectedImage(src);
+  };
+
+  const ImageWithModal = ({
+    src,
+    alt,
+    ...props
+  }: {
+    src: string;
+    alt: string;
+    [key: string]: React.ComponentProps<typeof Image>[keyof React.ComponentProps<
+      typeof Image
+    >];
+  }) => (
+    <Image
+      src={src}
+      alt={alt}
+      {...props}
+      onClick={() => handleImageClick(src)}
+      className={`${props.className} cursor-pointer transition-transform hover:scale-[1.02]`}
+    />
+  );
+
   const data = [
     {
       title: "2024",
@@ -16,7 +46,7 @@ function Resume() {
             delicate balance of technical excellence and effective team coordination.
           </p>
           <div className="grid grid-cols-3 gap-4">
-            <Image
+            <ImageWithModal
               src="/gdg-1.jpeg"
               alt="GDG First Event"
               width={500}
@@ -24,7 +54,7 @@ function Resume() {
               loading="lazy"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
-            <Image
+            <ImageWithModal
               src="/gdg-2.jpg"
               alt="Devfest 2024"
               width={500}
@@ -32,7 +62,7 @@ function Resume() {
               loading="lazy"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
-            <Image
+            <ImageWithModal
               src="/gdg-6.jpg"
               alt="Github101 Event"
               width={500}
@@ -40,7 +70,7 @@ function Resume() {
               loading="lazy"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
-            <Image
+            <ImageWithModal
               src="/gdg-4.JPG"
               alt="Coffetalks Event"
               width={500}
@@ -48,7 +78,7 @@ function Resume() {
               loading="lazy"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
-            <Image
+            <ImageWithModal
               src="/gdg-5.jpg"
               alt="Github101 Event"
               width={500}
@@ -56,7 +86,7 @@ function Resume() {
               loading="lazy"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
-            <Image
+            <ImageWithModal
               src="/gdg-3.JPG"
               alt="Python101 Event"
               width={500}
@@ -81,7 +111,7 @@ function Resume() {
             entire software development lifecycle and the importance of team synergy.
           </p>
           <div className="grid grid-cols-2 gap-4">
-            <Image
+            <ImageWithModal
               src="/wincoi-1.jpeg"
               alt="Wincoi Event"
               width={500}
@@ -89,7 +119,7 @@ function Resume() {
               loading="lazy"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
-            <Image
+            <ImageWithModal
               src="/wincoi-2.jpg"
               alt="Wincoi Event"
               width={500}
@@ -114,7 +144,7 @@ function Resume() {
             becoming a more versatile developer.
           </p>
           <div className="grid grid-cols-2 gap-4">
-            <Image
+            <ImageWithModal
               src="/2022-1.jpeg"
               alt="Studying on Codecademy"
               width={500}
@@ -122,7 +152,7 @@ function Resume() {
               loading="lazy"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
-            <Image
+            <ImageWithModal
               src="/2022-2.jpeg"
               alt="Studying on Codecademy"
               width={500}
@@ -130,7 +160,7 @@ function Resume() {
               loading="lazy"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
-            <Image
+            <ImageWithModal
               src="/2022-3.jpeg"
               alt="Studying on Codecademy"
               width={500}
@@ -138,7 +168,7 @@ function Resume() {
               loading="lazy"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
-            <Image
+            <ImageWithModal
               src="/2022-4.png"
               alt="Studying on Codecademy"
               width={500}
@@ -163,7 +193,7 @@ function Resume() {
             and set the foundation for my future endeavors.
           </p>
           <div className="grid grid-cols-2 gap-4">
-            <Image
+            <ImageWithModal
               src="/2021-1.jpeg"
               alt="Istanbul City"
               width={500}
@@ -171,7 +201,7 @@ function Resume() {
               loading="lazy"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
-            <Image
+            <ImageWithModal
               src="/2021-2.jpeg"
               alt="First Setup"
               width={500}
@@ -179,7 +209,7 @@ function Resume() {
               loading="lazy"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
-            <Image
+            <ImageWithModal
               src="/2021-3.jpeg"
               alt="Coding with atadanicen"
               width={500}
@@ -187,7 +217,7 @@ function Resume() {
               loading="lazy"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
-            <Image
+            <ImageWithModal
               src="/2021-4.jpeg"
               alt="Halic University Welcoming"
               width={500}
@@ -204,6 +234,17 @@ function Resume() {
   return (
     <div id="resume" className="w-full">
       <Timeline data={data} />
+      <Modal isOpen={!!selectedImage} onClose={() => setSelectedImage(null)}>
+        {selectedImage && (
+          <Image
+            src={selectedImage}
+            alt="Enlarged view"
+            width={1000}
+            height={1000}
+            className="rounded-lg max-h-[85vh] w-auto object-contain"
+          />
+        )}
+      </Modal>
     </div>
   );
 }

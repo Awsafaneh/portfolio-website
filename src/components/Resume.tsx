@@ -51,9 +51,26 @@ function Resume() {
               Currently serving as a Core Team Member & Project Team Lead at Google
               Developer Groups on Campus Haliç. It&apos;s been an incredible journey
               sharing knowledge and inspiring fellow developers through speaking
-              engagements at Python101 and Github101 events. Leading project teams has
-              taught me the delicate balance of technical excellence and effective team
-              coordination.
+              engagements at{" "}
+              <span className="inline-flex items-center gap-1">
+                Python101
+                <a
+                  href="https://www.youtube.com/watch?v=jDuRw_1Cdc8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="opacity-50 hover:opacity-100 transition-opacity"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="w-4 h-4 inline-block"
+                    fill="currentColor"
+                  >
+                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+                  </svg>
+                </a>
+              </span>{" "}
+              and Github101 events. Leading project teams has taught me the delicate
+              balance of technical excellence and effective team coordination.
             </p>
             <div className="grid grid-cols-3 gap-4">
               <ImageWithModal

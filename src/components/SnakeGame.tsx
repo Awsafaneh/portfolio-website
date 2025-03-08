@@ -118,6 +118,11 @@ export default function SnakeGame({ onClose }: { onClose: () => void }) {
       if (e.key === "Escape") onClose();
       if (e.key === "r" && gameOver) resetGame();
 
+      // Prevent scrolling with arrow keys while game is open
+      if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
+        e.preventDefault();
+      }
+
       const newDirection = {
         ArrowUp: "up",
         ArrowDown: "down",

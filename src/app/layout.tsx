@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "react-hot-toast";
 
@@ -28,6 +29,7 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
         <Toaster position="bottom-right" />
+        <Analytics />
       </body>
     </html>
   );

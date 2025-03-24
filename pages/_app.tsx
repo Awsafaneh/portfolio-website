@@ -1,5 +1,4 @@
 import { DefaultSeo } from "next-seo";
-import { Analytics } from "@vercel/analytics/react";
 import type { AppProps } from "next/app";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -16,7 +15,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         }}
       />
       <Component {...pageProps} />
-      <Analytics />
     </>
   );
 }

@@ -10,7 +10,9 @@ export function Footer() {
           <p className="text-sm text-neutral-400">
             © {new Date().getFullYear()} Mustafa Eftekin
           </p>
-
+          <p className="text-xs text-neutral-800">
+            Hint: Try the &quot;Konami Code&quot; somewhere!
+          </p>
           <div className="flex items-center gap-4">
             <Link
               href="https://github.com/eftekin"

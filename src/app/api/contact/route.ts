@@ -9,6 +9,7 @@ const debug = true;
 const requiredEnvVars = [
   "NEXT_PUBLIC_SUPABASE_URL",
   "SUPABASE_SERVICE_ROLE_KEY",
+  "DISCORD_WEBHOOK_URL",
 ] as const;
 
 for (const envVar of requiredEnvVars) {
@@ -123,6 +124,49 @@ export async function POST(request: Request) {
     if (error) {
       console.error("Supabase error:", error);
       throw error;
+    }
+
+    // Send message to Discord webhook
+    try {
+      const discordMessage = {
+        embeds: [
+          {
+            title: "New Contact Form Submission",
+            color: 0x00ff00,
+            fields: [
+              {
+                name: "Name",
+                value: name.trim(),
+                inline: true,
+              },
+              {
+                name: "Email",
+                value: email.trim(),
+                inline: true,
+              },
+              {
+                name: "Message",
+                value: sanitizedMessage,
+              },
+            ],
+            timestamp: new Date().toISOString(),
+          },
+        ],
+      };
+
+      const discordResponse = await fetch(process.env.DISCORD_WEBHOOK_URL!, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(discordMessage),
+      });
+
+      if (!discordResponse.ok) {
+        console.error("Discord webhook error:", await discordResponse.text());
+      }
+    } catch (discordError) {
+      console.error("Error sending to Discord:", discordError);
     }
 
     return NextResponse.json(
